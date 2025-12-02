@@ -1,5 +1,6 @@
 package ec.edu.epn;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -59,9 +60,24 @@ public class CalculatorTest {
         double result = calculator.divide(a, b);
 
         // Assert is the verification
-        assertEquals(2.0, result);
+        assertAll(
+                () -> assertTrue(result > 0),
+                () -> assertEquals(2.0, result, 0.0001));
     }
 
+    @org.junit.jupiter.api.Disabled("Demonstration of disable/enable - remove this annotation to enable the test")
+    @org.junit.jupiter.api.Test
+    void divide_DisabledDemonstration_RemoveDisabledToRun() {
+        // Arrange
+        int a = 10;
+        int b = 5;
+
+        // Act
+        double result = calculator.divide(a, b);
+
+        // Assert
+        assertEquals(2.0, result, 0.0001);
+    }
 
     @Test
     void isEven_EvenNumber_ReturnsTrue() {
@@ -85,5 +101,10 @@ public class CalculatorTest {
 
         // Assert is the verification
         assertFalse(result);
+    }
+
+    @org.junit.jupiter.api.AfterAll
+    static void tearDownAfterClass() {
+        System.out.println("All tests finished");
     }
 }
